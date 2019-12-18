@@ -25,6 +25,9 @@ class NotTrashTabBar: UITabBarController {
     }()
     override func viewDidLoad() {
         super.viewDidLoad()
+        feedVC.tabBarItem = UITabBarItem(title: "", image: UIImage(systemName: "house"), tag: 0)
+        addVc.tabBarItem = UITabBarItem(title: "", image: UIImage(systemName: "camera"), tag: 1)
+        profileVC.tabBarItem = UITabBarItem(title: "", image: UIImage(systemName: "person"), tag: 2)
         self.viewControllers = [feedVC,addVc, profileVC]
     }
     
