@@ -9,22 +9,26 @@
 import UIKit
 
 class PostDetailVC: UIViewController {
-
+//MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+    //MARK: - Variables
+    var postImages = [UIImage]()
+    //MARK: - UI Objects
+    lazy var postImage: UIPageControl = {
+        let page = UIPageControl()
+        page.layer.zPosition = 1
+        page.numberOfPages = postImages.count
+        page.currentPage = 0
+        page.tintColor = UIColor.red
+        page.pageIndicatorTintColor = UIColor.black
+        page.currentPageIndicatorTintColor = UIColor.green
+        return page
+    }()
+    //MARK: - Objc Functions
+    //MARK: - Regular Functions
+    //MARK: - Constraints
 
 }
