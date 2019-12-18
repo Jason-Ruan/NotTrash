@@ -13,6 +13,19 @@
 		5026C5C623AA9E07003DA0D3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5026C5C523AA9E07003DA0D3 /* Assets.xcassets */; };
 		5026C5C923AA9E07003DA0D3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5026C5C723AA9E07003DA0D3 /* LaunchScreen.storyboard */; };
 		5026C5D423AA9E07003DA0D3 /* NotTrashTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5026C5D323AA9E07003DA0D3 /* NotTrashTests.swift */; };
+		5026C5E023AAA00A003DA0D3 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5026C5DF23AAA00A003DA0D3 /* LoginVC.swift */; };
+		5026C5E223AAA019003DA0D3 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5026C5E123AAA019003DA0D3 /* SignUpVC.swift */; };
+		5026C5E523AAA03E003DA0D3 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5026C5E423AAA03E003DA0D3 /* HomeVC.swift */; };
+		5026C5E723AAA04F003DA0D3 /* PostDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5026C5E623AAA04F003DA0D3 /* PostDetailVC.swift */; };
+		5026C5E923AAA05E003DA0D3 /* AddPostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5026C5E823AAA05E003DA0D3 /* AddPostVC.swift */; };
+		5026C5ED23AAA0AB003DA0D3 /* UserProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5026C5EC23AAA0AB003DA0D3 /* UserProfileVC.swift */; };
+		5026C5F223AAA106003DA0D3 /* AppUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5026C5F123AAA106003DA0D3 /* AppUser.swift */; };
+		5026C5F423AAA10E003DA0D3 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5026C5F323AAA10E003DA0D3 /* Post.swift */; };
+		5026C5F723AAA153003DA0D3 /* FireAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5026C5F623AAA153003DA0D3 /* FireAuth.swift */; };
+		5026C5F923AAA161003DA0D3 /* FireService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5026C5F823AAA161003DA0D3 /* FireService.swift */; };
+		5026C5FB23AAA170003DA0D3 /* FireStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5026C5FA23AAA170003DA0D3 /* FireStore.swift */; };
+		5026C5FF23AAA26B003DA0D3 /* PostTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5026C5FE23AAA26B003DA0D3 /* PostTableCell.swift */; };
+		5026C60123AAA2A3003DA0D3 /* PostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5026C60023AAA2A3003DA0D3 /* PostCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +49,19 @@
 		5026C5CF23AA9E07003DA0D3 /* NotTrashTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NotTrashTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5026C5D323AA9E07003DA0D3 /* NotTrashTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotTrashTests.swift; sourceTree = "<group>"; };
 		5026C5D523AA9E07003DA0D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5026C5DF23AAA00A003DA0D3 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		5026C5E123AAA019003DA0D3 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
+		5026C5E423AAA03E003DA0D3 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
+		5026C5E623AAA04F003DA0D3 /* PostDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailVC.swift; sourceTree = "<group>"; };
+		5026C5E823AAA05E003DA0D3 /* AddPostVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostVC.swift; sourceTree = "<group>"; };
+		5026C5EC23AAA0AB003DA0D3 /* UserProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileVC.swift; sourceTree = "<group>"; };
+		5026C5F123AAA106003DA0D3 /* AppUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUser.swift; sourceTree = "<group>"; };
+		5026C5F323AAA10E003DA0D3 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		5026C5F623AAA153003DA0D3 /* FireAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireAuth.swift; sourceTree = "<group>"; };
+		5026C5F823AAA161003DA0D3 /* FireService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireService.swift; sourceTree = "<group>"; };
+		5026C5FA23AAA170003DA0D3 /* FireStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStore.swift; sourceTree = "<group>"; };
+		5026C5FE23AAA26B003DA0D3 /* PostTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableCell.swift; sourceTree = "<group>"; };
+		5026C60023AAA2A3003DA0D3 /* PostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +103,10 @@
 		5026C5BB23AA9E05003DA0D3 /* NotTrash */ = {
 			isa = PBXGroup;
 			children = (
+				5026C5FD23AAA24E003DA0D3 /* Views */,
+				5026C5F523AAA140003DA0D3 /* Firebase */,
+				5026C5F023AAA0F5003DA0D3 /* Models */,
+				5026C5E323AAA01F003DA0D3 /* ViewControllers */,
 				5026C5BC23AA9E05003DA0D3 /* AppDelegate.swift */,
 				5026C5BE23AA9E05003DA0D3 /* SceneDelegate.swift */,
 				5026C5C023AA9E05003DA0D3 /* ViewController.swift */,
@@ -94,6 +124,71 @@
 				5026C5D523AA9E07003DA0D3 /* Info.plist */,
 			);
 			path = NotTrashTests;
+			sourceTree = "<group>";
+		};
+		5026C5DE23AA9FF0003DA0D3 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				5026C5DF23AAA00A003DA0D3 /* LoginVC.swift */,
+				5026C5E123AAA019003DA0D3 /* SignUpVC.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		5026C5E323AAA01F003DA0D3 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				5026C5FC23AAA1F8003DA0D3 /* UserExperience */,
+				5026C5DE23AA9FF0003DA0D3 /* Login */,
+				5026C5EB23AAA08F003DA0D3 /* ProfileVC */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		5026C5EB23AAA08F003DA0D3 /* ProfileVC */ = {
+			isa = PBXGroup;
+			children = (
+				5026C5EC23AAA0AB003DA0D3 /* UserProfileVC.swift */,
+			);
+			path = ProfileVC;
+			sourceTree = "<group>";
+		};
+		5026C5F023AAA0F5003DA0D3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5026C5F123AAA106003DA0D3 /* AppUser.swift */,
+				5026C5F323AAA10E003DA0D3 /* Post.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		5026C5F523AAA140003DA0D3 /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				5026C5F623AAA153003DA0D3 /* FireAuth.swift */,
+				5026C5F823AAA161003DA0D3 /* FireService.swift */,
+				5026C5FA23AAA170003DA0D3 /* FireStore.swift */,
+			);
+			path = Firebase;
+			sourceTree = "<group>";
+		};
+		5026C5FC23AAA1F8003DA0D3 /* UserExperience */ = {
+			isa = PBXGroup;
+			children = (
+				5026C5E423AAA03E003DA0D3 /* HomeVC.swift */,
+				5026C5E623AAA04F003DA0D3 /* PostDetailVC.swift */,
+				5026C5E823AAA05E003DA0D3 /* AddPostVC.swift */,
+			);
+			path = UserExperience;
+			sourceTree = "<group>";
+		};
+		5026C5FD23AAA24E003DA0D3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5026C5FE23AAA26B003DA0D3 /* PostTableCell.swift */,
+				5026C60023AAA2A3003DA0D3 /* PostCollectionViewCell.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -198,7 +293,20 @@
 			files = (
 				5026C5C123AA9E05003DA0D3 /* ViewController.swift in Sources */,
 				5026C5BD23AA9E05003DA0D3 /* AppDelegate.swift in Sources */,
+				5026C5E923AAA05E003DA0D3 /* AddPostVC.swift in Sources */,
+				5026C5F423AAA10E003DA0D3 /* Post.swift in Sources */,
+				5026C60123AAA2A3003DA0D3 /* PostCollectionViewCell.swift in Sources */,
+				5026C5FB23AAA170003DA0D3 /* FireStore.swift in Sources */,
+				5026C5ED23AAA0AB003DA0D3 /* UserProfileVC.swift in Sources */,
+				5026C5E023AAA00A003DA0D3 /* LoginVC.swift in Sources */,
+				5026C5E723AAA04F003DA0D3 /* PostDetailVC.swift in Sources */,
+				5026C5E523AAA03E003DA0D3 /* HomeVC.swift in Sources */,
+				5026C5F723AAA153003DA0D3 /* FireAuth.swift in Sources */,
+				5026C5E223AAA019003DA0D3 /* SignUpVC.swift in Sources */,
+				5026C5F923AAA161003DA0D3 /* FireService.swift in Sources */,
 				5026C5BF23AA9E05003DA0D3 /* SceneDelegate.swift in Sources */,
+				5026C5F223AAA106003DA0D3 /* AppUser.swift in Sources */,
+				5026C5FF23AAA26B003DA0D3 /* PostTableCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
