@@ -8,6 +8,10 @@
 
 import UIKit
 
+enum CellIdentifier: String {
+    case PostTableCell
+}
+
 class HomeVC: UIViewController {
     
     
@@ -17,12 +21,13 @@ class HomeVC: UIViewController {
         let control = UISegmentedControl()
         setUpControlSegments(control: control)
         control.backgroundColor = .orange
+        control.selectedSegmentIndex = 0
         return control
     }()
     
     lazy var postTableView: UITableView = {
         let tableview = UITableView()
-        
+        tableview.register(PostTableCell.self, forCellReuseIdentifier: CellIdentifier.PostTableCell.rawValue)
         return tableview
     }()
     
@@ -50,9 +55,7 @@ class HomeVC: UIViewController {
         control.insertSegment(withTitle: "Bronx", at: 2, animated: true)
         control.insertSegment(withTitle: "Queens", at: 3, animated: true)
         control.insertSegment(withTitle: "Staten Isle", at: 4, animated: true)
-        
     }
-    
     
     //MARK: - Constraints
     
