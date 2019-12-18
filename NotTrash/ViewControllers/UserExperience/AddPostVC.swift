@@ -9,17 +9,29 @@
 import UIKit
 
 class AddPostVC: UIViewController {
-
+    //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        navigationItem.title = "yo"
-       navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.save, target: self, action: #selector(gotoDetail))
+        segueToDetail()
     }
+    var currentUser: AppUser?
+    //MARK: - Variables
     
-   @objc private func gotoDetail(){
-    navigationController?.pushViewController(PostDetailVC(), animated: true)
+    //MARK: - UI Objects
+    //MARK: - Objc Functions
+    @objc private func gotoDetail(){
+       navigationController?.pushViewController(PostDetailVC(), animated: true)
+       }
+    //MARK: - Regular Functions
+    private func setUpView(){
+        view.backgroundColor = .white
     }
+    private func segueToDetail(){
+      navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.save, target: self, action: #selector(gotoDetail))
+    }
+    //MARK: - Constraints
+    
+  
     
 
    
