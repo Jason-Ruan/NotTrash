@@ -10,14 +10,7 @@ import UIKit
 
 class UserProfileVC: UIViewController {
     
-//
-//    private var timer = Timer()
-//    private var remainingTime = 0.0
-//    private var showPulse = false
-//
-//
-//
-//
+
         var photoLibraryAccess = false
     var image = UIImage() {
         didSet {
@@ -25,20 +18,16 @@ class UserProfileVC: UIViewController {
         }
     }
 
-//  private lazy var remainingTimerLabel: UILabel = {
-//        let remainingLabel = UILabel ()
-//
-//        return remainingLabel
-//    }()
-//
+
     
     
-    
-    
-   var rewardImage: UIImageView = {
-          let image = UIImageView()
-         return image
-          }()
+      var rewardImage: UIImageView = {
+           let image = UIImageView()
+           image.image = UIImage(named: "Trophy")
+           image.contentMode = .scaleAspectFill
+       return image
+           }()
+       
         
   lazy var addImageButton: UIButton = {
            let button = UIButton()
@@ -149,6 +138,18 @@ class UserProfileVC: UIViewController {
           ])
       }
     
+    private func   setRewardImageConstraints() {
+         rewardImage.translatesAutoresizingMaskIntoConstraints = false
+          NSLayoutConstraint.activate([
+              rewardImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            rewardImage.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 200),
+           rewardImage.widthAnchor.constraint(equalToConstant: 50),
+            rewardImage.heightAnchor.constraint(equalToConstant: 50)
+          ])
+      }
+    
+    
+    
     private func Addsubviews() {
         self.view.addSubview(profileImage)
         self.view.addSubview(BioTextView)
@@ -162,7 +163,7 @@ class UserProfileVC: UIViewController {
         Addsubviews()
         setImageConstraints()
         setTextFieldConstraints()
-//        setRewardImageConstraints()
+      setRewardImageConstraints()
         setADDImageConstraints()
      
         // Do any additional setup after loading the view.
