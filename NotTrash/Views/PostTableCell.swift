@@ -9,16 +9,55 @@
 import UIKit
 
 class PostTableCell: UITableViewCell {
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    //MARK: - Property Objects
+    lazy var userImage: UIImageView = {
+        let image = UIImage()
+        let imageView = UIImageView(image: image)
+        
+        return imageView
+    }()
+    
+    lazy var username: UILabel = {
+        let label = UILabel()
+        
+        return label
+    }()
+    
+    lazy var itemPhoto: UIImageView = {
+        let image = UIImage()
+        let imageView = UIImageView(image: image)
+        
+        return imageView
+    }()
+    
+    lazy var descriptionTextView: UITextView = {
+        let textView = UITextView()
+        
+        return textView
+    }()
+    
+    //MARK: - Initializer
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    required init?(coder: NSCoder) {
+      fatalError("init(coder:) has not been implemented")
     }
-
+    //MARK: - Functions
+    
+    private func addCellSubviews() {
+        
+    }
+    
+    private func setUpCellConstraints() {
+        userImage.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            userImage.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5),
+            userImage.topAnchor.constraint(equalTo: self.topAnchor, constant: 5),
+            userImage.widthAnchor.constraint(equalToConstant: 30),
+            userImage.heightAnchor.constraint(equalToConstant: 30),
+        ])
+    }
 }

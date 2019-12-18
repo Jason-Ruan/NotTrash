@@ -9,22 +9,31 @@
 import UIKit
 
 class AddPostVC: UIViewController {
-
+    //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        segueToDetail()
     }
+    var currentUser: AppUser?
+    //MARK: - Variables
+    
+    //MARK: - UI Objects
+    //MARK: - Objc Functions
+    @objc private func gotoDetail(){
+       navigationController?.pushViewController(PostDetailVC(), animated: true)
+       }
+    //MARK: - Regular Functions
+    private func setUpView(){
+        view.backgroundColor = .white
+    }
+    private func segueToDetail(){
+      navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.save, target: self, action: #selector(gotoDetail))
+    }
+    //MARK: - Constraints
+    
+  
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+   
 
 }
