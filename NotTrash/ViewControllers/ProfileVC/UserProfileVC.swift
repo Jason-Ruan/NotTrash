@@ -25,6 +25,7 @@ class UserProfileVC: UIViewController {
            let image = UIImageView()
            image.image = UIImage(named: "Trophy")
            image.contentMode = .scaleAspectFill
+        
        return image
            }()
        
@@ -83,7 +84,7 @@ class UserProfileVC: UIViewController {
     
     lazy var PointsButton: UIButton = {
         let button = UIButton()
-        button.setTitle("75/200", for: .normal)
+        button.setTitle("140/200", for: .normal)
         button.layer.cornerRadius = 6
         button.setTitleColor(.purple, for: .normal)
                button.titleLabel?.font = UIFont(name: "Verdana-Bold", size: 20)
@@ -198,7 +199,7 @@ class UserProfileVC: UIViewController {
 //
    view.tintColor = UIColor.purple
         view.backgroundColor = .white
-view.setProgressWithAnimation(duration: 1.0, value: 0.3)
+view.setProgressWithAnimation(duration: 6.0, value: 0.6)
      
          return  view
      }()
