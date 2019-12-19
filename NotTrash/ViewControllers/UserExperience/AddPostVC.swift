@@ -63,7 +63,7 @@ class AddPostVC: UIViewController {
     
     
     
-    lazy var desriptionTextView: UITextView = {
+    lazy var descriptionTextView: UITextView = {
         var view = UITextView()
         view.backgroundColor = .systemTeal
         return view
@@ -99,15 +99,22 @@ class AddPostVC: UIViewController {
     
     
     @objc private func savePost(){
-        saveButton.isEnabled = false
+        if descriptionTextView.text.isEmpty && postImages.count == 0{
+            showAlert(with: "", and: "Please fill out fields")
+        }else {
         
-        guard let imageData = postImages.first!.jpegData(compressionQuality: 0.3) else {
-            return
+        saveButton.isEnabled = false
+        var imageData = [Data]()
+        for i in postImages{
+            if let selectedData = i.jpegData(compressionQuality: 0.3){
+                imageData.append(selectedData)
+        }
         }
         FireStore.postManager.storeImage(image: imageData, completion: {  (result) in
             switch result{
-            case .success(let url):
-                let post = Post(from: self.currentUser!, itemID: "7", borough: "Queens", imageURLStrings: [url.absoluteString], description: self.desriptionTextView.text, isAvailable: true)
+            case .success(let urls):
+                print(urls)
+                let post = Post(from: self.currentUser!, itemID: "7", borough: "Queens", imageURLStrings: urls, description: self.descriptionTextView.text, isAvailable: true)
                 FireService.manager.createPost(post: post) { (result) in
                     switch result{
                     case .success(()):
@@ -120,15 +127,18 @@ class AddPostVC: UIViewController {
                 print(error)
             }
         })
-    }
-    
-    
+        }}
     
     
     
     
     //MARK: - Regular Functions
-    func getImagePermission(){
+     private func showAlert(with title: String, and message: String) {
+                    let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
+                    alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                    present(alertVC, animated: true, completion: nil)
+                }
+   private func getImagePermission(){
         switch PHPhotoLibrary.authorizationStatus(){
         case .notDetermined, .denied , .restricted:
             PHPhotoLibrary.requestAuthorization({ status in
@@ -178,13 +188,13 @@ class AddPostVC: UIViewController {
     
     //MARK: - Constraints
     private func constrainDescriptionView(){
-        view.addSubview(desriptionTextView)
-        desriptionTextView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(descriptionTextView)
+        descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            desriptionTextView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 60),
-            desriptionTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            desriptionTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            desriptionTextView.heightAnchor.constraint(equalToConstant: 150)
+            descriptionTextView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            descriptionTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            descriptionTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            descriptionTextView.heightAnchor.constraint(equalToConstant: 150)
         ])}
     private func constrainImageCollection() {
         view.addSubview(imageCollectionView)
@@ -193,7 +203,7 @@ class AddPostVC: UIViewController {
             imageCollectionView.bottomAnchor.constraint(equalTo: cameraButton.topAnchor, constant: 0),
             imageCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             imageCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            imageCollectionView.heightAnchor.constraint(equalToConstant: 400)
+            imageCollectionView.topAnchor.constraint(equalTo: descriptionTextView.bottomAnchor)
         ])
     }
     
