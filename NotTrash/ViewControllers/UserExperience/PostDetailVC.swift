@@ -11,7 +11,7 @@ import UIKit
 class PostDetailVC: UIViewController {
     //MARK: - UI Objects
     lazy var imageCollectionView: UICollectionView = {
-       let layout = UICollectionViewFlowLayout()
+        let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumInteritemSpacing = 0
         layout.itemSize = CGSize(width: view.frame.width, height: 400)
@@ -32,14 +32,14 @@ class PostDetailVC: UIViewController {
         page.backgroundColor = .clear
         page.currentPage = 0
         page.tintColor = UIColor.systemGray
-        page.pageIndicatorTintColor = UIColor.darkGray
-        page.currentPageIndicatorTintColor = UIColor.lightGray
+        page.pageIndicatorTintColor = UIColor.lightGray
+        page.currentPageIndicatorTintColor = UIColor.blue
         return page
     }()
     
     lazy var postCreatorNameLabel: UILabel = {
         let label = UILabel()
-        if let poster = self.poster, let posterName = poster.displayName {
+        if let posterName = self.itemListing?.creatorID {
             label.text = posterName
         }
         return label
@@ -61,10 +61,11 @@ class PostDetailVC: UIViewController {
     }()
     
     lazy var additionalItemInfo: UITextView = {
-       let tv = UITextView()
+        let tv = UITextView()
         if let itemListing = self.itemListing {
             tv.text = itemListing.description
         }
+        tv.isEditable = false
         return tv
     }()
     
@@ -95,12 +96,51 @@ class PostDetailVC: UIViewController {
     
     
     //MARK: - Properties
-    var itemListing: Post?
-    var poster: AppUser?
+    var itemListing: Post? {
+        didSet {
+            guard let creatorID = self.itemListing?.creatorID, let arrImagesURLStrings = self.itemListing?.imageURLStrings else {
+                print("Did not get itemListing dEtails")
+                return
+            }
+            
+            self.badge = UIImage(named: "Trophy")
+            
+            var retrievedImages = [UIImage]()
+            let dispatchGroup = DispatchGroup()
+            
+            arrImagesURLStrings.forEach { (urlString) in
+                dispatchGroup.enter()
+                FireStore.postManager.getImages(profileUrl: urlString) { (result) in
+                    switch result {
+                    case .success(let imageData):
+                        guard let image = UIImage(data: imageData) else { return }
+                        retrievedImages.append(image)
+                        
+                        dispatchGroup.leave()
+                    case .failure(let error):
+                        print("There was an error trying to retrieve imageData from PostDetailVC\nError:\(error)")
+                        dispatchGroup.leave()
+                    }
+                }
+            }
+            dispatchGroup.notify(queue: .main) {
+                self.postImages = retrievedImages
+            }
+        }
+    }
+    
+    var poster: AppUser? {
+        didSet {
+            self.badge = UIImage(named: "Trophy")
+        }
+    }
     var badge: UIImage?
     var postImages = [UIImage]() {
         didSet {
+            print(self.postImages.count)
             imageCollectionView.reloadData()
+            view.addSubview(imagePageControl)
+            constrainPageControl()
         }
     }
     
@@ -116,7 +156,6 @@ class PostDetailVC: UIViewController {
     
     //MARK: - Private Functions
     private func addSubviews() {
-        view.addSubview(imagePageControl)
         view.addSubview(imageCollectionView)
         view.addSubview(postCreatorNameLabel)
         view.addSubview(badgeImageView)
@@ -126,7 +165,6 @@ class PostDetailVC: UIViewController {
     
     private func applyAllConstraints() {
         constrainImageCollectionView()
-        constrainPageControl()
         constrainPosterName()
         constrainBadgeImageView()
         constrainAdditionalItemInfoTextView()
@@ -139,14 +177,14 @@ class PostDetailVC: UIViewController {
             imageCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             imageCollectionView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             imageCollectionView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor),
-            imageCollectionView.heightAnchor.constraint(equalToConstant: 400)
+            imageCollectionView.heightAnchor.constraint(equalToConstant: view.safeAreaLayoutGuide.layoutFrame.height / 3)
         ])
     }
     
     private func constrainPageControl() {
         imagePageControl.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            imagePageControl.bottomAnchor.constraint(equalTo: imageCollectionView.bottomAnchor, constant: -30),
+            imagePageControl.topAnchor.constraint(equalTo: imageCollectionView.bottomAnchor, constant: 10),
             imagePageControl.centerXAnchor.constraint(equalTo: imageCollectionView.centerXAnchor),
             imagePageControl.widthAnchor.constraint(equalTo: imageCollectionView.widthAnchor),
             imagePageControl.heightAnchor.constraint(equalToConstant: 20)
