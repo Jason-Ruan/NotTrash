@@ -68,11 +68,12 @@ class UserProfileVC: UIViewController {
         return image
         }()
     
-    lazy var BioTextView: UITextView = {
-         let textView = UITextView()
+    lazy var BioTextView: UITextField = {
+         let textView = UITextField()
          textView.font = UIFont(name: "Verdana", size: 14)
          textView.backgroundColor = .white
-        textView.layer.borderColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
+        textView.placeholder = " About you..."
+        textView.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         textView.layer.borderWidth = 3.0
          textView.layer.cornerRadius = 5
         textView.autocorrectionType = .no
@@ -142,7 +143,7 @@ class UserProfileVC: UIViewController {
          profileImage.translatesAutoresizingMaskIntoConstraints = false
          NSLayoutConstraint.activate([
              profileImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-             profileImage.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -125),
+             profileImage.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -80),
              profileImage.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
              profileImage.widthAnchor.constraint(equalToConstant: 50),
              profileImage.heightAnchor.constraint(equalToConstant: 50)])
@@ -162,9 +163,9 @@ class UserProfileVC: UIViewController {
           BioTextView.translatesAutoresizingMaskIntoConstraints = false
           NSLayoutConstraint.activate([
               BioTextView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            BioTextView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 80),
-           BioTextView.widthAnchor.constraint(equalToConstant: 300),
-            BioTextView.heightAnchor.constraint(equalToConstant: 50)
+            BioTextView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 60),
+           BioTextView.widthAnchor.constraint(equalToConstant: 150),
+            BioTextView.heightAnchor.constraint(equalToConstant: 30)
           ])
       }
     
@@ -172,7 +173,7 @@ class UserProfileVC: UIViewController {
           nextReward.translatesAutoresizingMaskIntoConstraints = false
           NSLayoutConstraint.activate([
               nextReward.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            nextReward.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 320),
+            nextReward.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 250),
            nextReward.widthAnchor.constraint(equalToConstant: 150),
             nextReward.heightAnchor.constraint(equalToConstant: 20)
           ])
@@ -184,7 +185,7 @@ class UserProfileVC: UIViewController {
     rewardImage.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             rewardImage.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 100),
-        rewardImage.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 320),
+        rewardImage.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 120),
          rewardImage.widthAnchor.constraint(equalToConstant: 30),
           rewardImage.heightAnchor.constraint(equalToConstant: 15)
         ])
@@ -211,7 +212,7 @@ CircularProgress.translatesAutoresizingMaskIntoConstraints = false
             CircularProgress.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             CircularProgress.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -30),
         CircularProgress.widthAnchor.constraint(equalToConstant: 5),
-         CircularProgress.heightAnchor.constraint(equalToConstant: 100)
+         CircularProgress.heightAnchor.constraint(equalToConstant: 80)
         ])
     }
     
@@ -232,7 +233,7 @@ CircularProgress.translatesAutoresizingMaskIntoConstraints = false
          PointsButton.translatesAutoresizingMaskIntoConstraints = false
           NSLayoutConstraint.activate([
              PointsButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -80),
-            PointsButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 150),
+            PointsButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 115),
            PointsButton.widthAnchor.constraint(equalToConstant: 150),
            PointsButton.heightAnchor.constraint(equalToConstant: 50)
           ])
@@ -244,7 +245,7 @@ CircularProgress.translatesAutoresizingMaskIntoConstraints = false
          rewardStarImage.translatesAutoresizingMaskIntoConstraints = false
           NSLayoutConstraint.activate([
              rewardStarImage.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -150),
-            rewardStarImage.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 150),
+            rewardStarImage.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 115),
           rewardStarImage.widthAnchor.constraint(equalToConstant: 40),
           rewardStarImage.heightAnchor.constraint(equalToConstant: 40)
           ])
