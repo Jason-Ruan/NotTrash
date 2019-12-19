@@ -18,7 +18,7 @@ class HomeVC: UIViewController {
     lazy var boroughControl: UISegmentedControl = {
         let control = UISegmentedControl()
         setUpControlSegments(control: control)
-        control.backgroundColor = .orange
+        control.backgroundColor = .green
         control.selectedSegmentIndex = 0
         return control
     }()
@@ -42,7 +42,7 @@ class HomeVC: UIViewController {
     //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .lightGray
+        self.view.backgroundColor = .white
         addSubviews()
         setUpConstraints()
         setUpDelegates()
@@ -91,7 +91,7 @@ class HomeVC: UIViewController {
             boroughControl.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             boroughControl.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
             boroughControl.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
-            boroughControl.heightAnchor.constraint(equalToConstant: 40)
+            boroughControl.heightAnchor.constraint(equalToConstant: 30)
         ])
         
         postTableView.translatesAutoresizingMaskIntoConstraints = false
@@ -114,11 +114,11 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let test = tests[indexPath.row]
         if let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.PostTableCell.rawValue) as? PostTableCell {
             let post = posts[indexPath.row]
+            
             cell.configureCell(post: post)
-            cell.backgroundColor = .green
+            cell.backgroundColor = .white
             
             return cell
         }

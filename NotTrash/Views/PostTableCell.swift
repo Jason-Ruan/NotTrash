@@ -32,7 +32,7 @@ class PostTableCell: UITableViewCell {
     
     lazy var descriptionTextView: UITextView = {
         let textView = UITextView()
-//        textView.isEditable = false
+        textView.isEditable = false
         return textView
     }()
     
@@ -50,9 +50,8 @@ class PostTableCell: UITableViewCell {
     
     func configureCell(post: Post) {
         descriptionTextView.text = post.description
-        
-        print(post.imageURLStrings.count)
-        print(post)
+        username.text = "USER"
+        userImage.image = UIImage(systemName: "person")
         
         guard let image = post.imageURLStrings.first else {
             return
@@ -84,8 +83,8 @@ class PostTableCell: UITableViewCell {
         NSLayoutConstraint.activate([
             userImage.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5),
             userImage.topAnchor.constraint(equalTo: self.topAnchor, constant: 5),
-            userImage.widthAnchor.constraint(equalToConstant: 30),
-            userImage.heightAnchor.constraint(equalToConstant: 30),
+            userImage.widthAnchor.constraint(equalToConstant: 20),
+            userImage.heightAnchor.constraint(equalToConstant: 60),
         ])
         
         username.translatesAutoresizingMaskIntoConstraints = false
@@ -94,7 +93,7 @@ class PostTableCell: UITableViewCell {
             username.centerYAnchor.constraint(equalTo: userImage.centerYAnchor),
             username.leadingAnchor.constraint(equalTo: userImage.trailingAnchor, constant: 5),
             username.topAnchor.constraint(equalTo: self.topAnchor, constant: 5),
-            username.widthAnchor.constraint(equalToConstant: 42),
+            username.widthAnchor.constraint(equalToConstant: 100),
             username.heightAnchor.constraint(equalToConstant: 20)
         ])
         
@@ -102,9 +101,9 @@ class PostTableCell: UITableViewCell {
         
         NSLayoutConstraint.activate([
             descriptionTextView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5),
-            descriptionTextView.topAnchor.constraint(equalTo: self.topAnchor, constant: 5),
+            descriptionTextView.topAnchor.constraint(equalTo: itemPhoto.topAnchor),
             descriptionTextView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -5),
-            descriptionTextView.leadingAnchor.constraint(equalTo: username.trailingAnchor, constant: 5)
+            descriptionTextView.leadingAnchor.constraint(equalTo: itemPhoto.trailingAnchor, constant: 5)
         ])
         
         itemPhoto.translatesAutoresizingMaskIntoConstraints = false
@@ -112,8 +111,8 @@ class PostTableCell: UITableViewCell {
         NSLayoutConstraint.activate([
             itemPhoto.topAnchor.constraint(equalTo: userImage.bottomAnchor, constant: 5),
             itemPhoto.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5),
-            itemPhoto.trailingAnchor.constraint(equalTo: descriptionTextView.leadingAnchor, constant: 5),
-            itemPhoto.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -5)
+            itemPhoto.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -5),
+            itemPhoto.widthAnchor.constraint(equalToConstant: 200)
         
         ])
     }
