@@ -37,9 +37,66 @@ class PostDetailVC: UIViewController {
         return page
     }()
     
+    lazy var postCreatorName: UILabel = {
+        let label = UILabel()
+        if let poster = self.poster, let posterName = poster.displayName {
+            label.text = posterName
+        }
+        return label
+    }()
+    
+    lazy var badgeImageView: UIImageView = {
+        let iv = UIImageView()
+        if let badge = self.badge {
+            iv.image = badge
+        }
+        return iv
+    }()
+    
+    //MARK: - Optional Time Left Label
+//    lazy var timeLeftLabel: UILabel = {
+//       let label = UILabel()
+//        if let itemCreationDate = self.itemListing?.dateCreated {
+//            //Creates string formatting for date objects
+//            let dateComponentsFormatter = DateComponentsFormatter()
+//            dateComponentsFormatter.allowedUnits = [.day, .hour, .minute]
+//            dateComponentsFormatter.unitsStyle = .abbreviated
+//
+//            let dateFormatter = ISO8601DateFormatter()
+//            dateFormatter.formatOptions = [.withFullDate, .withSpaceBetweenDateAndTime]
+//
+//            //Creates last day for item listing
+//            var deadlineDateComponents = DateComponents()
+//            deadlineDateComponents.day = 7
+//            var deadline = Calendar.current.date(byAdding: deadlineDateComponents, to: itemCreationDate)
+//
+//            //Changes text of label to reflect remaining time
+//            if let deadline = deadline, let timeLeft = dateComponentsFormatter.string(from: itemCreationDate, to: deadline) {
+//                label.text = timeLeft
+//            }
+//        }
+//        return label
+//    }()
+    
+    lazy var additionalItemInfo: UITextView = {
+       let tv = UITextView()
+        if let itemListing = self.itemListing {
+            tv.text = itemListing.description
+        }
+        return tv
+    }()
+    
+    
     
     //MARK: - Properties
-    var postImages = ["THIS", "IS", "SPARTA!"]
+    var itemListing: Post?
+    var poster: AppUser?
+    var badge: UIImage?
+    var postImages = [UIImage]() {
+        didSet {
+            imageCollectionView.reloadData()
+        }
+    }
     
     
     //MARK: - Lifecycle
@@ -55,6 +112,9 @@ class PostDetailVC: UIViewController {
     private func addSubviews() {
         view.addSubview(imagePageControl)
         view.addSubview(imageCollectionView)
+        view.addSubview(postCreatorName)
+        view.addSubview(badgeImageView)
+        view.addSubview(additionalItemInfo)
     }
     
     private func applyAllConstraints() {
@@ -67,7 +127,7 @@ class PostDetailVC: UIViewController {
         NSLayoutConstraint.activate([
             imageCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             imageCollectionView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
-            imageCollectionView.widthAnchor.constraint(equalToConstant: view.frame.width),
+            imageCollectionView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor),
             imageCollectionView.heightAnchor.constraint(equalToConstant: 400)
         ])
     }
@@ -98,7 +158,7 @@ extension PostDetailVC: UICollectionViewDataSource, UICollectionViewDelegateFlow
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imageCell", for: indexPath) as! ItemImageCollectionViewCell
-        cell.cardLabel.text = postImages[indexPath.row]
+        cell.imageView.image = postImages[indexPath.row]
         return cell
     }
 }
