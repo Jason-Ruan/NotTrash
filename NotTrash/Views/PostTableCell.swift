@@ -32,7 +32,7 @@ class PostTableCell: UITableViewCell {
     
     lazy var descriptionTextView: UITextView = {
         let textView = UITextView()
-        textView.isEditable = false
+//        textView.isEditable = false
         return textView
     }()
     
@@ -47,6 +47,29 @@ class PostTableCell: UITableViewCell {
       fatalError("init(coder:) has not been implemented")
     }
     //MARK: - Functions
+    
+    func configureCell(post: Post) {
+        descriptionTextView.text = post.description
+        
+        print(post.imageURLStrings.count)
+        print(post)
+        
+        guard let image = post.imageURLStrings.first else {
+            return
+        }
+        FireStore.postManager.getImages(profileUrl: image) { (result) in
+            switch result {
+            case .success(let data):
+                guard let image = UIImage(data: data) else {
+                    print("FAILED CONVERTING DATA TO UIIMAGE")
+                    return
+                }
+                self.itemPhoto.image = image
+            case.failure(let error):
+                print(error)
+            }
+        }
+    }
     
     private func addCellSubviews() {
         self.addSubview(userImage)

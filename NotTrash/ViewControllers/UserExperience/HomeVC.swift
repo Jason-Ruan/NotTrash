@@ -46,9 +46,21 @@ class HomeVC: UIViewController {
         addSubviews()
         setUpConstraints()
         setUpDelegates()
+        loadData()
     }
     
     //MARK: - Functions
+    
+    func loadData() {
+        FireService.manager.getAllPost { (result) in
+            switch result {
+            case .success(let post):
+                self.posts = post
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
     
     private func addSubviews() {
         self.view.addSubview(boroughControl)
@@ -98,15 +110,16 @@ class HomeVC: UIViewController {
 
 extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tests.count
+        return posts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let post = posts[indexPath.row]
-        let test = tests[indexPath.row]
+//        let test = tests[indexPath.row]
         if let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.PostTableCell.rawValue) as? PostTableCell {
-            cell.descriptionTextView.text = test.1
-            cell.username.text = test.0
+            let post = posts[indexPath.row]
+            cell.configureCell(post: post)
+            cell.backgroundColor = .green
+            
             return cell
         }
         return UITableViewCell()
@@ -116,5 +129,10 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
         return 200
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let detailVC = PostDetailVC()
+        detailVC.itemListing = posts[indexPath.row]
+        present(detailVC, animated: true)
+    }
     
 }
