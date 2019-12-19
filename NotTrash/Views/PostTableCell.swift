@@ -50,6 +50,7 @@ class PostTableCell: UITableViewCell {
     
     func configureCell(post: Post) {
         descriptionTextView.text = post.description
+        descriptionTextView.isEditable = false
         
         print(post.imageURLStrings.count)
         print(post)
