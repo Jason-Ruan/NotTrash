@@ -44,6 +44,7 @@ class AddPostVC: UIViewController {
         cv.backgroundColor = .white
         cv.register(ItemImageCollectionViewCell.self, forCellWithReuseIdentifier: "imageCell")
         cv.isPagingEnabled = true
+        cv.backgroundView = UIImageView(image: UIImage(systemName: "camera"))
         return cv
     }()
     
@@ -62,10 +63,10 @@ class AddPostVC: UIViewController {
     }()
     
     
-    lazy var descriptionTextView: UITextView = {
-        var view = UITextView()
+    lazy var descriptionTextView: UITextField = {
+        var view = UITextField()
         view.backgroundColor = #colorLiteral(red: 0.6470412612, green: 0.7913685441, blue: 0.8968411088, alpha: 1)
-        view.text = "Enter object description"
+        view.placeholder = "Enter object description"
         view.delegate = self
         return view
     }()
@@ -118,7 +119,10 @@ class AddPostVC: UIViewController {
       }
       
     @objc private func savePost(){
-        if descriptionTextView.text.isEmpty && postImages.count == 0{
+        guard let textDescrip = descriptionTextView.text else {
+            return showAlert(with: "", and: "Please type a description")
+        }
+        if textDescrip.isEmpty && postImages.count == 0{
             showAlert(with: "", and: "Please fill out fields")
         }else {
         
@@ -133,12 +137,14 @@ class AddPostVC: UIViewController {
             switch result{
             case .success(let urls):
                 print(urls)
-                let post = Post(from: self.currentUser!, borough: "queens", imageURLStrings: urls, description: self.descriptionTextView.text, isAvailable: true)
+                let post = Post(from: self.currentUser!, borough: "queens", imageURLStrings: urls, description: textDescrip, isAvailable: true)
                 
                 FireService.manager.createPost(post: post) { (result) in
                     switch result{
                     case .success(()):
                         self.saveButton.isEnabled = true
+                        self.resetView()
+                        self.tabBarController?.selectedIndex = 0
                     case .failure(let error):
                         print(error)
                     }}
@@ -151,8 +157,13 @@ class AddPostVC: UIViewController {
     
     
     
-    
     //MARK: - Regular Functions
+    private func resetView(){
+        descriptionTextView.text = nil
+        postImages.removeAll()
+        descriptionTextView.resignFirstResponder()
+        
+    }
     private func setUpView(){
          view.backgroundColor = .white
          navigationItem.rightBarButtonItem = saveButton
@@ -272,20 +283,8 @@ extension AddPostVC: UIImagePickerControllerDelegate, UINavigationControllerDele
         dismiss(animated: true)
     }
 }
-extension AddPostVC: UITextViewDelegate{
-func textViewDidBeginEditing(_ textView: UITextView) {
-    if (descriptionTextView.text == "Enter object description")
-    {
-        descriptionTextView.text = nil
-        descriptionTextView.textColor = UIColor.darkGray
+extension AddPostVC: UITextFieldDelegate{
+        func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+            textField.resignFirstResponder()
+        }
     }
-}
-func textViewDidEndEditing(_ textView: UITextView) {
-    if descriptionTextView.text.isEmpty
-    {
-        descriptionTextView.text = "Enter object description"
-        descriptionTextView.textColor = UIColor.darkGray
-    }
-    textView.resignFirstResponder()
-}
-}

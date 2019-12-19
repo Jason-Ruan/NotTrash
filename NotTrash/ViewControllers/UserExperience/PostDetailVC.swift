@@ -239,9 +239,10 @@ class PostDetailVC: UIViewController {
 //     var presetMessage = "This message is in response to your item listing on NotTrash for order \(itemListing?.description)."
       if MFMailComposeViewController.canSendMail() {
        let mail = MFMailComposeViewController()
+        let recipient = itemListing!.creatorID
        mail.mailComposeDelegate = self
-       mail.setToRecipients(["example@example.com"])
-       mail.setMessageBody("<p>yoo</p>", isHTML: true)
+        mail.setToRecipients([recipient])
+       mail.setMessageBody("<p>This message is in response to your item listing on NotTrash for order</p>", isHTML: true)
 
        present(mail, animated: true)
        } else {
