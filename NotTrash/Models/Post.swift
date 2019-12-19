@@ -22,14 +22,14 @@ struct Post {
     
     
     //MARK: - Initializers
-    init(from user: AppUser, itemID: String, borough: String, imageURLStrings: [String], description: String, isAvailable: Bool, dateCreated: Date) {
+    init(from user: AppUser, itemID: String, borough: String, imageURLStrings: [String], description: String, isAvailable: Bool) {
         self.creatorID = user.uid
         self.itemID = itemID
         self.borough = borough
         self.imageURLStrings = imageURLStrings
         self.description = description
         self.isAvailable = isAvailable
-        self.dateCreated = dateCreated
+        self.dateCreated = Date()
     }
     
     init?(from dict: [String: Any], id: String) {

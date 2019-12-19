@@ -17,6 +17,7 @@ class NotTrashTabBar: UITabBarController {
        }()
        lazy var addVc: UINavigationController = {
            let VC = AddPostVC()
+            VC.currentUser = AppUser(from: FireAuth.manager.currentUser!)
            return UINavigationController(rootViewController: VC)
        }()
     
