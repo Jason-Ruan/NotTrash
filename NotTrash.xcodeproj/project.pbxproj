@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		08CA9DE823AAD1F50006EB91 /* ItemImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CA9DE723AAD1F50006EB91 /* ItemImageCollectionViewCell.swift */; };
 		37E0969F1BF844E02F1C80F3 /* Pods_NotTrash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A9ABFCB21FE65E5FDE9A8D4 /* Pods_NotTrash.framework */; };
 		5026C5BD23AA9E05003DA0D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5026C5BC23AA9E05003DA0D3 /* AppDelegate.swift */; };
 		5026C5BF23AA9E05003DA0D3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5026C5BE23AA9E05003DA0D3 /* SceneDelegate.swift */; };
@@ -29,7 +30,9 @@
 		5026C60323AAA37F003DA0D3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5026C60223AAA37F003DA0D3 /* GoogleService-Info.plist */; };
 		5026C60823AAB060003DA0D3 /* NotTrashTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5026C60723AAB060003DA0D3 /* NotTrashTabBar.swift */; };
 		5026C60A23AAC748003DA0D3 /* CheckString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5026C60923AAC748003DA0D3 /* CheckString.swift */; };
+
 		6B0198BA23ABBB9A0056E26D /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B0198B923ABBB990056E26D /* CircularProgressView.swift */; };
+
 		FB357FFE2AE6FDA7C6674BE4 /* Pods_NotTrashTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E119E476143DDEF315D99868 /* Pods_NotTrashTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -44,6 +47,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		08CA9DE723AAD1F50006EB91 /* ItemImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		42CCB62B8BA0903E5CB7A3D4 /* Pods-NotTrashTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotTrashTests.release.xcconfig"; path = "Target Support Files/Pods-NotTrashTests/Pods-NotTrashTests.release.xcconfig"; sourceTree = "<group>"; };
 		5026C5B923AA9E05003DA0D3 /* NotTrash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NotTrash.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5026C5BC23AA9E05003DA0D3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -205,6 +209,7 @@
 			children = (
 				5026C5FE23AAA26B003DA0D3 /* PostTableCell.swift */,
 				5026C60023AAA2A3003DA0D3 /* PostCollectionViewCell.swift */,
+				08CA9DE723AAD1F50006EB91 /* ItemImageCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -414,6 +419,7 @@
 				5026C60123AAA2A3003DA0D3 /* PostCollectionViewCell.swift in Sources */,
 				5026C5FB23AAA170003DA0D3 /* FireStore.swift in Sources */,
 				5026C5ED23AAA0AB003DA0D3 /* UserProfileVC.swift in Sources */,
+				08CA9DE823AAD1F50006EB91 /* ItemImageCollectionViewCell.swift in Sources */,
 				5026C5E023AAA00A003DA0D3 /* LoginVC.swift in Sources */,
 				5026C60A23AAC748003DA0D3 /* CheckString.swift in Sources */,
 				5026C5E723AAA04F003DA0D3 /* PostDetailVC.swift in Sources */,

@@ -32,13 +32,15 @@ class PostTableCell: UITableViewCell {
     
     lazy var descriptionTextView: UITextView = {
         let textView = UITextView()
-        
+//        textView.isEditable = false
         return textView
     }()
     
     //MARK: - Initializer
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        addCellSubviews()
+        setUpCellConstraints()
     }
     
     required init?(coder: NSCoder) {
@@ -46,8 +48,34 @@ class PostTableCell: UITableViewCell {
     }
     //MARK: - Functions
     
-    private func addCellSubviews() {
+    func configureCell(post: Post) {
+        descriptionTextView.text = post.description
         
+        print(post.imageURLStrings.count)
+        print(post)
+        
+        guard let image = post.imageURLStrings.first else {
+            return
+        }
+        FireStore.postManager.getImages(profileUrl: image) { (result) in
+            switch result {
+            case .success(let data):
+                guard let image = UIImage(data: data) else {
+                    print("FAILED CONVERTING DATA TO UIIMAGE")
+                    return
+                }
+                self.itemPhoto.image = image
+            case.failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    private func addCellSubviews() {
+        self.addSubview(userImage)
+        self.addSubview(username)
+        self.addSubview(itemPhoto)
+        self.addSubview(descriptionTextView)
     }
     
     private func setUpCellConstraints() {
@@ -58,6 +86,35 @@ class PostTableCell: UITableViewCell {
             userImage.topAnchor.constraint(equalTo: self.topAnchor, constant: 5),
             userImage.widthAnchor.constraint(equalToConstant: 30),
             userImage.heightAnchor.constraint(equalToConstant: 30),
+        ])
+        
+        username.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            username.centerYAnchor.constraint(equalTo: userImage.centerYAnchor),
+            username.leadingAnchor.constraint(equalTo: userImage.trailingAnchor, constant: 5),
+            username.topAnchor.constraint(equalTo: self.topAnchor, constant: 5),
+            username.widthAnchor.constraint(equalToConstant: 42),
+            username.heightAnchor.constraint(equalToConstant: 20)
+        ])
+        
+        descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            descriptionTextView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5),
+            descriptionTextView.topAnchor.constraint(equalTo: self.topAnchor, constant: 5),
+            descriptionTextView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -5),
+            descriptionTextView.leadingAnchor.constraint(equalTo: username.trailingAnchor, constant: 5)
+        ])
+        
+        itemPhoto.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            itemPhoto.topAnchor.constraint(equalTo: userImage.bottomAnchor, constant: 5),
+            itemPhoto.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5),
+            itemPhoto.trailingAnchor.constraint(equalTo: descriptionTextView.leadingAnchor, constant: 5),
+            itemPhoto.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -5)
+        
         ])
     }
 }

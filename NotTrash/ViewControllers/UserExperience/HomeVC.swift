@@ -13,8 +13,6 @@ enum CellIdentifier: String {
 }
 
 class HomeVC: UIViewController {
-    
-    
     //MARK: - Property Objects
     
     lazy var boroughControl: UISegmentedControl = {
@@ -33,6 +31,13 @@ class HomeVC: UIViewController {
     
     //MARK: - Properties
     
+    var posts = [Post]() {
+        didSet {
+            postTableView.reloadData()
+        }
+    }
+    
+    let tests = [("CRAB_LOVER","THIS IS A PICTURE OF A CRAB I WILL GIVE THIS CRAB AWAY FOR FREE"),("bInchBO1", "i found this banana on the side of the road im giving it away bcause i believe in 0 waste"),("nickage","REAL: Declaration of Independence. LIMITED!!! ONLY 1 IN STOCK.")]
     
     //MARK: - Life Cycle
     override func viewDidLoad() {
@@ -40,9 +45,22 @@ class HomeVC: UIViewController {
         self.view.backgroundColor = .lightGray
         addSubviews()
         setUpConstraints()
+        setUpDelegates()
+        loadData()
     }
     
     //MARK: - Functions
+    
+    func loadData() {
+        FireService.manager.getAllPost { (result) in
+            switch result {
+            case .success(let post):
+                self.posts = post
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
     
     private func addSubviews() {
         self.view.addSubview(boroughControl)
@@ -55,6 +73,11 @@ class HomeVC: UIViewController {
         control.insertSegment(withTitle: "Bronx", at: 2, animated: true)
         control.insertSegment(withTitle: "Queens", at: 3, animated: true)
         control.insertSegment(withTitle: "Staten Isle", at: 4, animated: true)
+    }
+    
+    private func setUpDelegates() {
+        postTableView.delegate = self
+        postTableView.dataSource = self
     }
     
     //MARK: - Constraints
@@ -81,6 +104,35 @@ class HomeVC: UIViewController {
             postTableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
         
         ])
+    }
+    
+}
+
+extension HomeVC: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return posts.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let test = tests[indexPath.row]
+        if let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.PostTableCell.rawValue) as? PostTableCell {
+            let post = posts[indexPath.row]
+            cell.configureCell(post: post)
+            cell.backgroundColor = .green
+            
+            return cell
+        }
+        return UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 200
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let detailVC = PostDetailVC()
+        detailVC.itemListing = posts[indexPath.row]
+        present(detailVC, animated: true)
     }
     
 }

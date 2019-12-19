@@ -159,7 +159,7 @@ class LoginVC: UIViewController {
              NSLayoutConstraint.activate([
                  createAccount.leadingAnchor.constraint(equalTo: view.leadingAnchor),
                  createAccount.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                 createAccount.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -350),
+                 createAccount.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0),
                  createAccount.heightAnchor.constraint(equalToConstant: 50)])
          }
      }

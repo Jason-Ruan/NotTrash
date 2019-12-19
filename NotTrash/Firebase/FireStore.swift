@@ -30,23 +30,38 @@ class FireStore {
     }
     
     //save images
-    func storeImage(image: Data,  completion: @escaping (Result<URL,Error>) -> ()) {
-        let metadata = StorageMetadata()
-        metadata.contentType = "image/jpeg"
-        let uuid = UUID()
-        let imageLocation = imagesFolderReference.child(uuid.description)
-        imageLocation.putData(image, metadata: metadata) { (responseMetadata, error) in
-            if let error = error {
-                completion(.failure(error))
-            } else {
-                imageLocation.downloadURL { (url, error) in
-                    guard error == nil else {completion(.failure(error!));return}
-                    guard let url = url else {completion(.failure(error!));return}
-                    completion(.success(url))
+    
+    
+    func storeImage(image: [Data],  completion: @escaping (Result<[String],Error>) -> ()) {
+        var urls = [String]()
+        let dispatchGroup = DispatchGroup()
+        for i in image{
+            dispatchGroup.enter()
+            let metadata = StorageMetadata()
+            metadata.contentType = "image/jpeg"
+            let uuid = UUID()
+            let imageLocation = imagesFolderReference.child(uuid.description)
+            imageLocation.putData(i, metadata: metadata) { (responseMetadata, error) in
+                if let error = error {
+                    dispatchGroup.leave()
+                    completion(.failure(error))
+                } else {
+                    imageLocation.downloadURL { (url, error) in
+                        guard error == nil else {completion(.failure(error!));return}
+                        guard let urlSaved = url else {completion(.failure(error!));return}
+                        urls.append(urlSaved.absoluteString)
+                        dispatchGroup.leave()
+                    }
                 }
             }
         }
+        dispatchGroup.notify(queue: .main) {
+            completion(.success(urls))
+        }
+        
     }
+    
+    
     //get images from firebase
     func getImages(profileUrl: String, completion: @escaping (Result<Data, Error>) -> ()){
         imagesFolderReference.storage.reference(forURL: profileUrl).getData(maxSize: 2000000) { (data, error) in
