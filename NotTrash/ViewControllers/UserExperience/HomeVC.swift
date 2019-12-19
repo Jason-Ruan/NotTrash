@@ -18,7 +18,7 @@ class HomeVC: UIViewController {
     lazy var boroughControl: UISegmentedControl = {
         let control = UISegmentedControl()
         setUpControlSegments(control: control)
-        control.backgroundColor = .green
+        control.backgroundColor = .clear
         control.selectedSegmentIndex = 0
         return control
     }()
@@ -26,6 +26,7 @@ class HomeVC: UIViewController {
     lazy var postTableView: UITableView = {
         let tableview = UITableView()
         tableview.register(PostTableCell.self, forCellReuseIdentifier: CellIdentifier.PostTableCell.rawValue)
+        tableview.backgroundColor = .clear
         return tableview
     }()
     
@@ -42,7 +43,7 @@ class HomeVC: UIViewController {
     //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .white
+        self.view.setGradient(cgColors: [#colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1),#colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)])
         addSubviews()
         setUpConstraints()
         setUpDelegates()
@@ -139,3 +140,16 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     }
     
 }
+
+extension UIView {
+    public func setGradient(cgColors colors: [CGColor]){
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = bounds
+        gradientLayer.colors = colors
+        gradientLayer.locations = [0.0, 1.0]
+        gradientLayer.startPoint = CGPoint(x: 1.0, y: 1.0)
+        gradientLayer.endPoint = CGPoint(x: -1.0, y: 0.0)
+        layer.insertSublayer(gradientLayer, at: 0)
+    }
+}
+

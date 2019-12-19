@@ -20,7 +20,7 @@ class PostTableCell: UITableViewCell {
     
     lazy var username: UILabel = {
         let label = UILabel()
-        
+        label.font = UIFont(name: "Avenir Book", size: 15)
         return label
     }()
     
@@ -34,6 +34,7 @@ class PostTableCell: UITableViewCell {
     lazy var descriptionTextView: UITextView = {
         let textView = UITextView()
         textView.isEditable = false
+        textView.font = UIFont(name: "Avenir Book", size: 15)
         return textView
     }()
     
@@ -46,6 +47,7 @@ class PostTableCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         addCellSubviews()
         setUpCellConstraints()
+        self.backgroundColor = .clear
     }
     
     required init?(coder: NSCoder) {
