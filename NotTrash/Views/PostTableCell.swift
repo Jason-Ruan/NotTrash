@@ -50,9 +50,8 @@ class PostTableCell: UITableViewCell {
     
     func configureCell(post: Post) {
         descriptionTextView.text = post.description
-        
-        print(post.imageURLStrings.count)
-        print(post)
+        username.text = "USER"
+        userImage.image = UIImage(systemName: "person")
         
         guard let image = post.imageURLStrings.first else {
             return
@@ -69,8 +68,6 @@ class PostTableCell: UITableViewCell {
                 print(error)
             }
         }
-        username.text = "USER"
-        userImage.image = UIImage(systemName: "person")
     }
     
     private func addCellSubviews() {

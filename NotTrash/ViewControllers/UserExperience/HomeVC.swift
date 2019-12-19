@@ -114,9 +114,9 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let test = tests[indexPath.row]
         if let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.PostTableCell.rawValue) as? PostTableCell {
             let post = posts[indexPath.row]
+            
             cell.configureCell(post: post)
             cell.backgroundColor = .white
             
