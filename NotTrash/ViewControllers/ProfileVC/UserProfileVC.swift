@@ -19,7 +19,7 @@ class UserProfileVC: UIViewController {
     }
 
 
-    
+
     
       var rewardImage: UIImageView = {
            let image = UIImageView()
@@ -28,7 +28,19 @@ class UserProfileVC: UIViewController {
        return image
            }()
        
-        
+    
+    
+    var rewardStarImage: UIImageView = {
+             let image = UIImageView()
+             image.image = UIImage(named: "Star")
+             image.contentMode = .scaleAspectFill
+    
+         return image
+             }()
+    
+
+    
+    
   lazy var addImageButton: UIButton = {
            let button = UIButton()
            button.setTitle("Edit", for: .normal)
@@ -39,6 +51,8 @@ class UserProfileVC: UIViewController {
            button.addTarget(self, action: #selector(addImagePressed), for: .touchUpInside)
            return button
        }()
+
+    
 
 
     var profileImage: UIImageView = {
@@ -65,13 +79,28 @@ class UserProfileVC: UIViewController {
          return textView
      }()
     
-    lazy var ContactButton: UIButton = {
+    
+    lazy var PointsButton: UIButton = {
         let button = UIButton()
+        button.setTitle("75/200", for: .normal)
         button.layer.cornerRadius = 6
+        button.setTitleColor(.purple, for: .normal)
+               button.titleLabel?.font = UIFont(name: "Verdana-Bold", size: 20)
+        button.backgroundColor = .clear
         return button
     }()
     
-   
+    lazy var nextReward: UILabel = {
+        let label = UILabel()
+        label.text = " Your next Reward! "
+        label.textColor = #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)
+        label.backgroundColor = .white
+        return label
+    
+    }()
+    
+    
+    
     
     @objc private func addImagePressed() {
    let imagePickerViewController = UIImagePickerController()
@@ -113,9 +142,10 @@ class UserProfileVC: UIViewController {
          profileImage.translatesAutoresizingMaskIntoConstraints = false
          NSLayoutConstraint.activate([
              profileImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+             profileImage.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -125),
              profileImage.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
-             profileImage.widthAnchor.constraint(equalToConstant: 200),
-             profileImage.heightAnchor.constraint(equalToConstant: 200)])
+             profileImage.widthAnchor.constraint(equalToConstant: 50),
+             profileImage.heightAnchor.constraint(equalToConstant: 50)])
      }
     
   private func setADDImageConstraints() {
@@ -132,19 +162,91 @@ class UserProfileVC: UIViewController {
           BioTextView.translatesAutoresizingMaskIntoConstraints = false
           NSLayoutConstraint.activate([
               BioTextView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            BioTextView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 100),
+            BioTextView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 80),
            BioTextView.widthAnchor.constraint(equalToConstant: 300),
             BioTextView.heightAnchor.constraint(equalToConstant: 50)
           ])
       }
     
-    private func   setRewardImageConstraints() {
-         rewardImage.translatesAutoresizingMaskIntoConstraints = false
+    private func setNextRewardConstraints() {
+          nextReward.translatesAutoresizingMaskIntoConstraints = false
           NSLayoutConstraint.activate([
-              rewardImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            rewardImage.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 200),
-           rewardImage.widthAnchor.constraint(equalToConstant: 50),
-            rewardImage.heightAnchor.constraint(equalToConstant: 50)
+              nextReward.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            nextReward.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 320),
+           nextReward.widthAnchor.constraint(equalToConstant: 150),
+            nextReward.heightAnchor.constraint(equalToConstant: 20)
+          ])
+      }
+    
+    
+    
+    private func   setRewardImageConstraints() {
+    rewardImage.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            rewardImage.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 100),
+        rewardImage.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 320),
+         rewardImage.widthAnchor.constraint(equalToConstant: 30),
+          rewardImage.heightAnchor.constraint(equalToConstant: 15)
+        ])
+      }
+   //MARK: progressBar
+    
+    lazy var CircularProgress: CircularProgressView = {
+         let view = CircularProgressView()
+//        view.trackColor = UIColor.red
+//
+   view.tintColor = UIColor.purple
+        view.backgroundColor = .white
+view.setProgressWithAnimation(duration: 1.0, value: 0.3)
+     
+         return  view
+     }()
+    
+    
+    private func   setProgressbarConstraints() {
+CircularProgress.translatesAutoresizingMaskIntoConstraints = false
+             
+       CircularProgress.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            CircularProgress.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            CircularProgress.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -30),
+        CircularProgress.widthAnchor.constraint(equalToConstant: 5),
+         CircularProgress.heightAnchor.constraint(equalToConstant: 100)
+        ])
+    }
+    
+    @objc func animateProgress() {
+         let cP = self.view.viewWithTag(101) as! CircularProgressView
+         cP.setProgressWithAnimation(duration: 1.0, value: 0.7)
+         
+     }
+    
+    override func didReceiveMemoryWarning() {
+          super.didReceiveMemoryWarning()
+          // Dispose of any resources that can be recreated.
+      }
+    
+    //
+    
+    private func  pointsconstraints() {
+         PointsButton.translatesAutoresizingMaskIntoConstraints = false
+          NSLayoutConstraint.activate([
+             PointsButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -80),
+            PointsButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 150),
+           PointsButton.widthAnchor.constraint(equalToConstant: 150),
+           PointsButton.heightAnchor.constraint(equalToConstant: 50)
+          ])
+      }
+    
+    
+    
+    private func  Starpointsconstraints() {
+         rewardStarImage.translatesAutoresizingMaskIntoConstraints = false
+          NSLayoutConstraint.activate([
+             rewardStarImage.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -150),
+            rewardStarImage.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 150),
+          rewardStarImage.widthAnchor.constraint(equalToConstant: 40),
+          rewardStarImage.heightAnchor.constraint(equalToConstant: 40)
           ])
       }
     
@@ -155,6 +257,10 @@ class UserProfileVC: UIViewController {
         self.view.addSubview(BioTextView)
             self.view.addSubview(rewardImage)
         self.view.addSubview(addImageButton)
+        self.view.addSubview(PointsButton)
+        self.view.addSubview(rewardStarImage)
+        self.view.addSubview(CircularProgress)
+        self.view.addSubview(nextReward)
     }
     
     override func viewDidLoad() {
@@ -165,11 +271,14 @@ class UserProfileVC: UIViewController {
         setTextFieldConstraints()
       setRewardImageConstraints()
         setADDImageConstraints()
-     
+        pointsconstraints()
+        Starpointsconstraints()
+        setProgressbarConstraints()
+        setNextRewardConstraints()
+        
+      
         // Do any additional setup after loading the view.
     }
-
-    
 
 }
 extension UserProfileVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
