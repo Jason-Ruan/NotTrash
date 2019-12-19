@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MessageUI
 
 class PostDetailVC: UIViewController {
     //MARK: - UI Objects
@@ -233,10 +234,21 @@ class PostDetailVC: UIViewController {
     
     
     //MARK: - Objc Functions
-    @objc func pingGifter() {
-        //MARK: TODO - send preset message to gifter
-        //var presetMessage = "This message is in response to your item listing on NotTrash for order \(itemListing.itemID)."
+  
+     @objc func pingGifter() {
+//     var presetMessage = "This message is in response to your item listing on NotTrash for order \(itemListing?.description)."
+      if MFMailComposeViewController.canSendMail() {
+       let mail = MFMailComposeViewController()
+       mail.mailComposeDelegate = self
+       mail.setToRecipients(["example@example.com"])
+       mail.setMessageBody("<p>yoo</p>", isHTML: true)
+
+       present(mail, animated: true)
+       } else {
+       // show failure alert
+      }
     }
+
     
     //MARK: - Regular Functions
     //MARK: - Constraints
@@ -268,5 +280,11 @@ extension PostDetailVC: UIScrollViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let pageNumber = round(scrollView.contentOffset.x / scrollView.frame.size.width)
         imagePageControl.currentPage = Int(pageNumber)
+    }
+}
+
+extension PostDetailVC: MFMailComposeViewControllerDelegate{
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true)
     }
 }
