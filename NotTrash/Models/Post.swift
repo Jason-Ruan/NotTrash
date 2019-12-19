@@ -13,7 +13,7 @@ import FirebaseAuth
 struct Post {
     //MARK: - Properties
     let creatorID: String
-    let itemID: String
+    let id: String
     let borough: String
     let isAvailable: Bool
     let imageURLStrings: [String]
@@ -22,9 +22,9 @@ struct Post {
     
     
     //MARK: - Initializers
-    init(from user: AppUser, itemID: String, borough: String, imageURLStrings: [String], description: String, isAvailable: Bool) {
+    init(from user: AppUser, borough: String, imageURLStrings: [String], description: String, isAvailable: Bool) {
         self.creatorID = user.uid
-        self.itemID = itemID
+        self.id = UUID().description
         self.borough = borough
         self.imageURLStrings = imageURLStrings
         self.description = description
@@ -33,15 +33,14 @@ struct Post {
     }
     
     init?(from dict: [String: Any], id: String) {
-        guard let itemID = dict["itemID"] as? String,
-            let borough = dict["borough"] as? String,
+        guard let borough = dict["borough"] as? String,
             let isAvailable = dict["isAvailable"] as? Bool,
             let imageURLStrings = dict["imageURLStrings"] as? [String],
             let description = dict["description"] as? String,
             let dateCreated = (dict["dateCreated"] as? Timestamp)?.dateValue() else { return nil }
         
         self.creatorID = id
-        self.itemID = itemID
+        self.id = id
         self.borough = borough
         self.imageURLStrings = imageURLStrings
         self.description = description
@@ -54,7 +53,6 @@ struct Post {
     var fieldsDict: [String: Any] {
         return [
             "creatorID": self.creatorID,
-            "itemID": self.itemID,
             "borough": self.borough,
             "isAvailable": self.isAvailable,
             "imageURLStrings": self.imageURLStrings,

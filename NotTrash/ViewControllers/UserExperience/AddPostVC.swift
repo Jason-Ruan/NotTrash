@@ -11,14 +11,8 @@ import Photos
 
 class AddPostVC: UIViewController {
     //MARK: - Lifecycle
-    var postImages = [UIImage](){
-        didSet{
-            imageCollectionView.reloadData()
-            
-        }
-    }
-    var imagesUrl = [URL]()
-    
+   
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()
@@ -28,6 +22,12 @@ class AddPostVC: UIViewController {
     
     
     //MARK: - Variables
+    var postImages = [UIImage](){
+           didSet{
+               imageCollectionView.reloadData()
+               
+           }
+       }
     let imagePickerViewController = UIImagePickerController()
     var currentUser: AppUser?
     //MARK: - UI Objects
@@ -60,7 +60,6 @@ class AddPostVC: UIViewController {
         page.currentPageIndicatorTintColor = UIColor.lightGray
         return page
     }()
-    
     
     
     lazy var descriptionTextView: UITextView = {
@@ -96,8 +95,21 @@ class AddPostVC: UIViewController {
     
     
     //MARK: - Objc Functions
-    
-    
+    @objc private func presentPhotoPickerController() {
+          self.imagePickerViewController.delegate = self
+          self.imagePickerViewController.sourceType = .photoLibrary
+          self.imagePickerViewController.allowsEditing = true
+          self.imagePickerViewController.mediaTypes = ["public.image"]
+          self.present(self.imagePickerViewController, animated: true, completion: nil)
+      }
+      @objc private func presenCameraController() {
+          self.imagePickerViewController.delegate = self
+          self.imagePickerViewController.sourceType = .camera
+          self.imagePickerViewController.allowsEditing = true
+          self.imagePickerViewController.mediaTypes = ["public.image"]
+          self.present(self.imagePickerViewController, animated: true, completion: nil)
+      }
+      
     @objc private func savePost(){
         if descriptionTextView.text.isEmpty && postImages.count == 0{
             showAlert(with: "", and: "Please fill out fields")
@@ -114,7 +126,8 @@ class AddPostVC: UIViewController {
             switch result{
             case .success(let urls):
                 print(urls)
-                let post = Post(from: self.currentUser!, itemID: "7", borough: "Queens", imageURLStrings: urls, description: self.descriptionTextView.text, isAvailable: true)
+                let post = Post(from: self.currentUser!, borough: "queens", imageURLStrings: urls, description: self.descriptionTextView.text, isAvailable: true)
+                
                 FireService.manager.createPost(post: post) { (result) in
                     switch result{
                     case .success(()):
@@ -133,6 +146,11 @@ class AddPostVC: UIViewController {
     
     
     //MARK: - Regular Functions
+    private func setUpView(){
+         view.backgroundColor = .white
+         navigationItem.rightBarButtonItem = saveButton
+     }
+     
      private func showAlert(with title: String, and message: String) {
                     let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
                     alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
@@ -155,36 +173,14 @@ class AddPostVC: UIViewController {
             print("success")
         }
     }
-    
-    @objc private func presentPhotoPickerController() {
-        self.imagePickerViewController.delegate = self
-        self.imagePickerViewController.sourceType = .photoLibrary
-        self.imagePickerViewController.allowsEditing = true
-        self.imagePickerViewController.mediaTypes = ["public.image"]
-        self.present(self.imagePickerViewController, animated: true, completion: nil)
-    }
-    @objc private func presenCameraController() {
-        self.imagePickerViewController.delegate = self
-        self.imagePickerViewController.sourceType = .camera
-        self.imagePickerViewController.allowsEditing = true
-        self.imagePickerViewController.mediaTypes = ["public.image"]
-        self.present(self.imagePickerViewController, animated: true, completion: nil)
-    }
-    
-    
-    private func setUpView(){
-        view.backgroundColor = .white
-        navigationItem.rightBarButtonItem = saveButton
-    }
-    
-    
-    
     private func setUpContraints(){
-        constraintButtonStackView()
-        constrainDescriptionView()
-        constrainImageCollection()
-        constrainPageControl()
-    }
+         constraintButtonStackView()
+         constrainDescriptionView()
+         constrainImageCollection()
+         constrainPageControl()
+     }
+  
+    
     
     //MARK: - Constraints
     private func constrainDescriptionView(){
@@ -234,6 +230,7 @@ class AddPostVC: UIViewController {
     
     
 }
+//MARK: - CollectionView Delegates
 extension AddPostVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return postImages.count
@@ -249,6 +246,9 @@ extension AddPostVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLay
     }
     
 }
+
+
+//MARK: - UIScrollViewDelegate
 extension AddPostVC: UIScrollViewDelegate{
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let pageNumber = round(scrollView.contentOffset.x / scrollView.frame.size.width)
@@ -256,7 +256,7 @@ extension AddPostVC: UIScrollViewDelegate{
     }
 }    
 
-
+//MARK: - UIImagePickerControllerDelegate
 extension AddPostVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[.originalImage] as? UIImage{
