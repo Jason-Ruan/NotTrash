@@ -13,8 +13,6 @@ enum CellIdentifier: String {
 }
 
 class HomeVC: UIViewController {
-    
-    
     //MARK: - Property Objects
     
     lazy var boroughControl: UISegmentedControl = {
@@ -33,6 +31,13 @@ class HomeVC: UIViewController {
     
     //MARK: - Properties
     
+    var posts = [Post]() {
+        didSet {
+            postTableView.reloadData()
+        }
+    }
+    
+    let tests = [("CRAB_LOVER","THIS IS A PICTURE OF A CRAB I WILL GIVE THIS CRAB AWAY FOR FREE"),("bInchBO1", "i found this banana on the side of the road im giving it away bcause i believe in 0 waste"),("nickage","REAL: Declaration of Independence. LIMITED!!! ONLY 1 IN STOCK.")]
     
     //MARK: - Life Cycle
     override func viewDidLoad() {
@@ -40,6 +45,7 @@ class HomeVC: UIViewController {
         self.view.backgroundColor = .lightGray
         addSubviews()
         setUpConstraints()
+        setUpDelegates()
     }
     
     //MARK: - Functions
@@ -55,6 +61,11 @@ class HomeVC: UIViewController {
         control.insertSegment(withTitle: "Bronx", at: 2, animated: true)
         control.insertSegment(withTitle: "Queens", at: 3, animated: true)
         control.insertSegment(withTitle: "Staten Isle", at: 4, animated: true)
+    }
+    
+    private func setUpDelegates() {
+        postTableView.delegate = self
+        postTableView.dataSource = self
     }
     
     //MARK: - Constraints
@@ -82,5 +93,28 @@ class HomeVC: UIViewController {
         
         ])
     }
+    
+}
+
+extension HomeVC: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tests.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let post = posts[indexPath.row]
+        let test = tests[indexPath.row]
+        if let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.PostTableCell.rawValue) as? PostTableCell {
+            cell.descriptionTextView.text = test.1
+            cell.username.text = test.0
+            return cell
+        }
+        return UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 200
+    }
+    
     
 }
