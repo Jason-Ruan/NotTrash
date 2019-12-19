@@ -41,7 +41,7 @@ class AddPostVC: UIViewController {
         let cv = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
         cv.delegate = self
         cv.dataSource = self
-        cv.backgroundColor = .blue
+        cv.backgroundColor = .white
         cv.register(ItemImageCollectionViewCell.self, forCellWithReuseIdentifier: "imageCell")
         cv.isPagingEnabled = true
         return cv
@@ -64,7 +64,14 @@ class AddPostVC: UIViewController {
     
     lazy var descriptionTextView: UITextView = {
         var view = UITextView()
-        view.backgroundColor = .systemTeal
+        view.backgroundColor = #colorLiteral(red: 0.6470412612, green: 0.7913685441, blue: 0.8968411088, alpha: 1)
+        view.text = "Enter object description"
+        view.delegate = self
+        return view
+    }()
+    lazy var imagePlaceholder: UIImageView = {
+        let view = UIImageView()
+        view.image = UIImage(systemName: "camera")
         return view
     }()
     
@@ -202,7 +209,7 @@ class AddPostVC: UIViewController {
             imageCollectionView.topAnchor.constraint(equalTo: descriptionTextView.bottomAnchor)
         ])
     }
-    
+ 
     private func constrainPageControl() {
         view.addSubview(imagePageControl)
         imagePageControl.translatesAutoresizingMaskIntoConstraints = false
@@ -264,4 +271,21 @@ extension AddPostVC: UIImagePickerControllerDelegate, UINavigationControllerDele
         }else {print("no image")}
         dismiss(animated: true)
     }
+}
+extension AddPostVC: UITextViewDelegate{
+func textViewDidBeginEditing(_ textView: UITextView) {
+    if (descriptionTextView.text == "Enter object description")
+    {
+        descriptionTextView.text = nil
+        descriptionTextView.textColor = UIColor.darkGray
+    }
+}
+func textViewDidEndEditing(_ textView: UITextView) {
+    if descriptionTextView.text.isEmpty
+    {
+        descriptionTextView.text = "Enter object description"
+        descriptionTextView.textColor = UIColor.darkGray
+    }
+    textView.resignFirstResponder()
+}
 }
