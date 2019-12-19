@@ -13,18 +13,29 @@ class LoginVC: UIViewController {
     override func viewDidLoad() {
              super.viewDidLoad()
              setupSubViews()
+        setupTrashLogo()
          }
          // MARK: - UI objects
          
          lazy var notTrashLogo: UILabel = {
              let label = UILabel()
-             label.text = "NotTrash🚮"
+             label.text = "NotTrash"
              label.font = UIFont(name: "Verdana-Bold", size: 40)
              label.textColor = #colorLiteral(red: 0.2564295232, green: 0.4383472204, blue: 0.8055806756, alpha: 1)
              label.textAlignment = .center
              return label
          }()
          
+    var rewardStarImage: UIImageView = {
+                let image = UIImageView()
+                image.image = UIImage(named: "goldTrash")
+                image.contentMode = .scaleAspectFill
+       
+            return image
+                }()
+       
+    
+    
          lazy var emailTextField: UITextField = {
              let field = UITextField()
              field.placeholder = "Enter email"
@@ -97,7 +108,7 @@ class LoginVC: UIViewController {
          
          //MARK: Regular VC functions
          private func setupSubViews() {
-             view.backgroundColor = #colorLiteral(red: 0.4196515977, green: 0.8011952639, blue: 0.7877418399, alpha: 1)
+             view.backgroundColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 0.9216746795)
              emailTextField.delegate = self
              passwordTextField.delegate = self
              setupPursuitGramLogo()
@@ -138,6 +149,20 @@ class LoginVC: UIViewController {
                  notTrashLogo.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
                  notTrashLogo.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -16)])
          }
+    
+    private func setupTrashLogo() {
+         view.addSubview(rewardStarImage)
+  rewardStarImage.translatesAutoresizingMaskIntoConstraints = false
+       NSLayoutConstraint.activate([
+          rewardStarImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+        rewardStarImage.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -150),
+        rewardStarImage.widthAnchor.constraint(equalToConstant: 100),
+        rewardStarImage.heightAnchor.constraint(equalToConstant: 15)
+       ])
+     }
+     
+    
+    
          
          private func setupLoginStack() {
              let stackView = UIStackView(arrangedSubviews: [emailTextField, passwordTextField,loginButton])
