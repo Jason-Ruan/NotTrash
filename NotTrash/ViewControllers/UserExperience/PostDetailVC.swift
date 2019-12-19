@@ -37,7 +37,7 @@ class PostDetailVC: UIViewController {
         return page
     }()
     
-    lazy var postCreatorName: UILabel = {
+    lazy var postCreatorNameLabel: UILabel = {
         let label = UILabel()
         if let poster = self.poster, let posterName = poster.displayName {
             label.text = posterName
@@ -53,30 +53,12 @@ class PostDetailVC: UIViewController {
         return iv
     }()
     
-    //MARK: - Optional Time Left Label
-//    lazy var timeLeftLabel: UILabel = {
-//       let label = UILabel()
-//        if let itemCreationDate = self.itemListing?.dateCreated {
-//            //Creates string formatting for date objects
-//            let dateComponentsFormatter = DateComponentsFormatter()
-//            dateComponentsFormatter.allowedUnits = [.day, .hour, .minute]
-//            dateComponentsFormatter.unitsStyle = .abbreviated
-//
-//            let dateFormatter = ISO8601DateFormatter()
-//            dateFormatter.formatOptions = [.withFullDate, .withSpaceBetweenDateAndTime]
-//
-//            //Creates last day for item listing
-//            var deadlineDateComponents = DateComponents()
-//            deadlineDateComponents.day = 7
-//            var deadline = Calendar.current.date(byAdding: deadlineDateComponents, to: itemCreationDate)
-//
-//            //Changes text of label to reflect remaining time
-//            if let deadline = deadline, let timeLeft = dateComponentsFormatter.string(from: itemCreationDate, to: deadline) {
-//                label.text = timeLeft
-//            }
-//        }
-//        return label
-//    }()
+    lazy var messageButton: UIButton = {
+        let button = UIButton(type: UIButton.ButtonType.system)
+        button.setTitle("Message", for: .normal)
+        button.addTarget(self, action: #selector(pingGifter), for: .touchUpInside)
+        return button
+    }()
     
     lazy var additionalItemInfo: UITextView = {
        let tv = UITextView()
@@ -86,6 +68,30 @@ class PostDetailVC: UIViewController {
         return tv
     }()
     
+    //MARK: - Optional Time Left Label
+    //    lazy var timeLeftLabel: UILabel = {
+    //       let label = UILabel()
+    //        if let itemCreationDate = self.itemListing?.dateCreated {
+    //            //Creates string formatting for date objects
+    //            let dateComponentsFormatter = DateComponentsFormatter()
+    //            dateComponentsFormatter.allowedUnits = [.day, .hour, .minute]
+    //            dateComponentsFormatter.unitsStyle = .abbreviated
+    //
+    //            let dateFormatter = ISO8601DateFormatter()
+    //            dateFormatter.formatOptions = [.withFullDate, .withSpaceBetweenDateAndTime]
+    //
+    //            //Creates last day for item listing
+    //            var deadlineDateComponents = DateComponents()
+    //            deadlineDateComponents.day = 7
+    //            var deadline = Calendar.current.date(byAdding: deadlineDateComponents, to: itemCreationDate)
+    //
+    //            //Changes text of label to reflect remaining time
+    //            if let deadline = deadline, let timeLeft = dateComponentsFormatter.string(from: itemCreationDate, to: deadline) {
+    //                label.text = timeLeft
+    //            }
+    //        }
+    //        return label
+    //    }()
     
     
     //MARK: - Properties
@@ -112,14 +118,19 @@ class PostDetailVC: UIViewController {
     private func addSubviews() {
         view.addSubview(imagePageControl)
         view.addSubview(imageCollectionView)
-        view.addSubview(postCreatorName)
+        view.addSubview(postCreatorNameLabel)
         view.addSubview(badgeImageView)
         view.addSubview(additionalItemInfo)
+        view.addSubview(messageButton)
     }
     
     private func applyAllConstraints() {
         constrainImageCollectionView()
         constrainPageControl()
+        constrainPosterName()
+        constrainBadgeImageView()
+        constrainAdditionalItemInfoTextView()
+        constrainMessageButton()
     }
     
     private func constrainImageCollectionView() {
@@ -142,8 +153,53 @@ class PostDetailVC: UIViewController {
         ])
     }
     
+    private func constrainPosterName() {
+        postCreatorNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            postCreatorNameLabel.topAnchor.constraint(equalTo: imageCollectionView.bottomAnchor, constant: 30),
+            postCreatorNameLabel.centerXAnchor.constraint(equalTo: imageCollectionView.centerXAnchor),
+            postCreatorNameLabel.widthAnchor.constraint(equalTo: imageCollectionView.widthAnchor, constant: -30),
+            postCreatorNameLabel.heightAnchor.constraint(equalToConstant: 30)
+        ])
+    }
+    
+    private func constrainBadgeImageView() {
+        badgeImageView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            badgeImageView.topAnchor.constraint(equalTo: postCreatorNameLabel.bottomAnchor, constant: 10),
+            badgeImageView.leadingAnchor.constraint(equalTo: postCreatorNameLabel.leadingAnchor),
+            badgeImageView.widthAnchor.constraint(equalToConstant: 30),
+            badgeImageView.heightAnchor.constraint(equalToConstant: 30)
+        ])
+    }
+    
+    private func constrainAdditionalItemInfoTextView() {
+        additionalItemInfo.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            additionalItemInfo.topAnchor.constraint(equalTo: badgeImageView.bottomAnchor, constant: 10),
+            additionalItemInfo.leadingAnchor.constraint(equalTo: badgeImageView.leadingAnchor),
+            additionalItemInfo.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, constant: -30),
+            additionalItemInfo.heightAnchor.constraint(equalToConstant: 150)
+        ])
+    }
+    
+    private func constrainMessageButton() {
+        messageButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            messageButton.bottomAnchor.constraint(equalTo: additionalItemInfo.bottomAnchor, constant: 30),
+            messageButton.centerXAnchor.constraint(equalTo: additionalItemInfo.centerXAnchor),
+            messageButton.widthAnchor.constraint(equalToConstant: 100),
+            messageButton.heightAnchor.constraint(equalToConstant: 20)
+        ])
+    }
+    
     
     //MARK: - Objc Functions
+    @objc func pingGifter() {
+        //MARK: TODO - send preset message to gifter
+        //var presetMessage = "This message is in response to your item listing on NotTrash for order \(itemListing.itemID)."
+    }
+    
     //MARK: - Regular Functions
     //MARK: - Constraints
     
@@ -161,6 +217,11 @@ extension PostDetailVC: UICollectionViewDataSource, UICollectionViewDelegateFlow
         cell.imageView.image = postImages[indexPath.row]
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
 }
 
 
