@@ -10,6 +10,7 @@ import UIKit
 
 class PostTableCell: UITableViewCell {
     //MARK: - Property Objects
+    
     lazy var userImage: UIImageView = {
         let image = UIImage()
         let imageView = UIImageView(image: image)
@@ -37,6 +38,10 @@ class PostTableCell: UITableViewCell {
     }()
     
     //MARK: - Initializer
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        itemPhoto.image = nil
+    }
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         addCellSubviews()

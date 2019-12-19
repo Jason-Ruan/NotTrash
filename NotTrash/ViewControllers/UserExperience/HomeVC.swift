@@ -46,9 +46,12 @@ class HomeVC: UIViewController {
         addSubviews()
         setUpConstraints()
         setUpDelegates()
-        loadData()
+       
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+         loadData()
+    }
     //MARK: - Functions
     
     func loadData() {

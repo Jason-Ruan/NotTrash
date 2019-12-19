@@ -23,7 +23,7 @@ struct Post {
     
     //MARK: - Initializers
     init(from user: AppUser, borough: String, imageURLStrings: [String], description: String, isAvailable: Bool) {
-        self.creatorID = user.uid
+        self.creatorID = user.email!
         self.id = UUID().description
         self.borough = borough
         self.imageURLStrings = imageURLStrings
@@ -35,11 +35,12 @@ struct Post {
     init?(from dict: [String: Any], id: String) {
         guard let borough = dict["borough"] as? String,
             let isAvailable = dict["isAvailable"] as? Bool,
+            let creatorID = dict["creatorID"] as? String,
             let imageURLStrings = dict["imageURLStrings"] as? [String],
             let description = dict["description"] as? String,
             let dateCreated = (dict["dateCreated"] as? Timestamp)?.dateValue() else { return nil }
         
-        self.creatorID = id
+        self.creatorID = creatorID
         self.id = id
         self.borough = borough
         self.imageURLStrings = imageURLStrings
