@@ -18,13 +18,13 @@ class ItemImageCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    lazy var optionsButton: UIButton = {
-        let button = UIButton(frame: CGRect(x: 10, y: 10, width: 10, height: 10))
-        button.setImage(UIImage(named: "more-filled"), for: .normal)
-        button.backgroundColor = .blue
-        button.layer.cornerRadius = button.frame.height / 2
-        return button
-    }()
+//    lazy var optionsButton: UIButton = {
+//        let button = UIButton(frame: CGRect(x: 10, y: 10, width: 10, height: 10))
+//        button.setImage(UIImage(named: "more-filled"), for: .normal)
+//        button.backgroundColor = .blue
+//        button.layer.cornerRadius = button.frame.height / 2
+//        return button
+//    }()
     
     lazy var imageView: UIImageView = {
         let iv = UIImageView(frame: self.contentView.frame)
@@ -49,13 +49,13 @@ class ItemImageCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(imageView)
         contentView.addSubview(cardLabel)
         contentView.backgroundColor = .systemYellow
-        contentView.addSubview(optionsButton)
+//        contentView.addSubview(optionsButton)
     }
     
     private func constrainSubviews() {
         constrainImageView()
         constrainLabel()
-        constrainButton()
+//        constrainButton()
     }
     
     
@@ -80,15 +80,15 @@ class ItemImageCollectionViewCell: UICollectionViewCell {
         ])
     }
     
-    private func constrainButton() {
-        optionsButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            optionsButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant:  -10),
-            optionsButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            optionsButton.widthAnchor.constraint(equalToConstant: 50),
-            optionsButton.heightAnchor.constraint(equalToConstant: 50)
-        ])
-    }
+//    private func constrainButton() {
+//        optionsButton.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            optionsButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant:  -10),
+//            optionsButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+//            optionsButton.widthAnchor.constraint(equalToConstant: 50),
+//            optionsButton.heightAnchor.constraint(equalToConstant: 50)
+//        ])
+//    }
     
     
 }
