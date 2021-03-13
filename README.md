@@ -1,6 +1,4 @@
 # NotTrash
-notTrash
-
 
 A simple, minimalist app designed to encourage local communities to reduce landfill waste by upcycling items that would otherwise be thrown out. 
 After all, one person's trash can be another's treasure.
